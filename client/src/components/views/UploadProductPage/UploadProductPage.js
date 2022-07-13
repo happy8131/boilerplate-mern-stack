@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Button, Form, Input } from "antd";
 import FileUpload from "../../Utils/FileUpload";
-import axios from "axios";
+import Axios from "axios";
 
 const { TextArea } = Input;
 
@@ -16,14 +16,14 @@ const Continents = [
 ];
 
 function UploadProductPage(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [Title, setTitle] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Price, setPrice] = useState(0);
   const [Continent, setContinent] = useState(1);
 
-  const [images, setImages] = useState([]);
+  const [Images, setImages] = useState([]);
 
-  const titleChangeHandelr = (e) => {
+  const titleChangeHandler = (e) => {
     setTitle(e.target.value);
   };
   const descriptionChangeHandler = (e) => {
@@ -44,26 +44,26 @@ function UploadProductPage(props) {
   const submitHandler = (e) => {
     e.preventDefault(); //확인 누를때 자동적으로 새로고침(리프레쉬) 하는걸 방지한다
 
-    if (!title || !description || !price || !Continent || !images) {
-      return alert("모든 값을 넣어주셔야 합니다.");
+    if (!Title || !Description || !Price || !Continent || Images.length === 0) {
+      return alert(" 모든 값을 넣어주셔야 합니다.");
     }
 
     //서버에 채운 값들을 요청을 보낸다
     const body = {
       //로그인 된 사람의 ID
       writer: props.user.userData._id,
-      title: title,
-      description: description,
-      price: price,
-      images: images,
+      title: Title,
+      description: Description,
+      price: Price,
+      images: Images,
       continents: Continent,
     };
-    axios.post("/api/product", body).then((res) => {
-      if (res.data.success) {
-        alert("상품 업로드에 성공 했습니다");
+    Axios.post("/api/product", body).then((response) => {
+      if (response.data.success) {
+        alert("상품 업로드에 성공 했습니다.");
         props.history.push("/");
       } else {
-        alert("상품 업로드에 실패 했습니다");
+        alert("상품 업로드에 실패 했습니다.");
       }
     });
   };
@@ -78,27 +78,28 @@ function UploadProductPage(props) {
         <br />
         <br />
         <label>이름</label>
-        <Input onChange={titleChangeHandelr} value={title} />
+        <Input onChange={titleChangeHandler} value={Title} />
         <br />
         <br />
         <label>설명</label>
-        <TextArea onChange={descriptionChangeHandler} value={description} />
+        <TextArea onChange={descriptionChangeHandler} value={Description} />
         <br />
         <br />
         <label>가격($)</label>
-        <Input type="number" onChange={priceChangeHandler} value={price} />
+        <Input type="number" onChange={priceChangeHandler} value={Price} />
         <br />
         <br />
         <select onChange={continentChangeHandler} value={Continent}>
           {Continents.map((item) => (
             <option key={item.key} value={item.key}>
+              {" "}
               {item.value}
             </option>
           ))}
         </select>
         <br />
         <br />
-        <Button htmlType="submit">확인</Button>
+        <button type="submit">확인</button>
       </Form>
     </div>
   );

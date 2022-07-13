@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema(
@@ -10,7 +9,7 @@ const productSchema = mongoose.Schema(
     },
     title: {
       type: String,
-      maxLength: 50,
+      maxlength: 50,
     },
     description: {
       type: String,
@@ -28,6 +27,12 @@ const productSchema = mongoose.Schema(
       maxlength: 100,
       default: 0,
     },
+
+    continents: {
+      type: Number,
+      default: 1,
+    },
+
     views: {
       type: Number,
       default: 0,

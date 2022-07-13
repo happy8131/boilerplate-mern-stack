@@ -19,7 +19,6 @@ function LandingPage() {
 
   const getProducts = (body) => {
     axios.post("api/product/products", body).then((res) => {
-      console.log(res.data);
       if (res.data.success) {
         if (body.loadMore) {
           setProducts([...products, ...res.data.productInfo]);
@@ -37,7 +36,7 @@ function LandingPage() {
     let skip = skips + limits;
 
     let body = {
-      skip: skips,
+      skip: skip,
       limit: limits,
       loadMore: true,
     };

@@ -9,16 +9,16 @@ function CheckBox(props) {
   const handleToggle = (value) => {
     console.log(value);
     //누른 것의 Index를 구하고
-    const currentIndex = checked.indexOf(value);
-
+    const currentIndex = checked.indexOf(value); //-1이리먄 누른 값이 없는 거다
+    console.log(currentIndex);
     //checked된 state에서 현재 누른 chedckbox가 이미 있다면
     const newChedcked = [...checked];
-
-    // state 넣어준다.
+    console.log(newChedcked);
+    // state 넣어준다. 없기때문에 넣어준다
     if (currentIndex === -1) {
       newChedcked.push(value);
 
-      //빼주고
+      //빼주고 이미있다면
     } else {
       newChedcked.splice(currentIndex, 1);
     }
@@ -41,8 +41,8 @@ function CheckBox(props) {
 
   return (
     <div>
-      <Collapse defaultActiveKey={["1"]}>
-        <Panel header="This is panel header 1" key="1">
+      <Collapse defaultActiveKey={["0"]}>
+        <Panel header="Continents" key="1">
           {renderCheckboxLists()}
         </Panel>
       </Collapse>
